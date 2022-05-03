@@ -1,0 +1,52 @@
+[
+    {
+        "title": "CEO",
+        "salary": 100000,
+        "dep_id": 5
+    },
+    {
+        "title": "COO",
+        "salary": 95000,
+        "dep_id": 5
+    },
+    {
+        "title": "CFO",
+        "salary": 90000,
+        "dep_id": 2
+    },
+    {
+        "title": "Senior Developer",
+        "salary": 80000,
+        "dep_id": 1
+    },
+    {
+        "title": "Junior Developer",
+        "salary": 100000,
+        "dep_id": 1
+    },
+    {
+        "title": "Marketing Team Leader",
+        "salary": 50000,
+        "dep_id": 2
+    },
+    {
+        "title": "Manager",
+        "salary": 48000,
+        "dep_id": 3
+    },
+    {
+        "title": "HR Lead",
+        "salary": 40000,
+        "dep_id": 3
+    },
+    {
+        "title": "Computer Tech",
+        "salary": 70000,
+        "dep_id": 4
+    },
+    {
+        "title": "Server Tech",
+        "salary": 70000,
+        "dep_id": 4
+    }
+]

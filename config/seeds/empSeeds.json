@@ -1,0 +1,80 @@
+[
+    {
+        "first_name": "Bobby",
+        "last_name":"Bobson",
+        "role_id":1,
+        "manager_id":1
+    },
+    {
+        "first_name": "Bobby",
+        "last_name":"Snobson",
+        "role_id":2,
+        "manager_id": 1
+    },
+    {
+        "first_name": "Bobby",
+        "last_name":"Grobson",
+        "role_id":3,
+        "manager_id": 1
+    },
+    {
+        "first_name": "Bart",
+        "last_name":"Snobson",
+        "role_id":8,
+        "manager_id": 2
+    },
+    {
+        "first_name": "Jenny",
+        "last_name":"Nicholson",
+        "role_id":7,
+        "manager_id": 4
+    },
+    {
+        "first_name": "Jesse",
+        "last_name":"Plinkett",
+        "role_id":7,
+        "manager_id": 4
+    },
+    {
+        "first_name": "Jettmir",
+        "last_name":"Ragulzax",
+        "role_id":4,
+        "manager_id": 5
+    },
+    {
+        "first_name": "Lograf",
+        "last_name":"the Unwilling",
+        "role_id":4,
+        "manager_id": 5
+    },
+    {
+        "first_name": "Jim",
+        "last_name":"Tin",
+        "role_id":5,
+        "manager_id": 6
+    },
+    {
+        "first_name": "Tim",
+        "last_name":"Jin",
+        "role_id":5,
+        "manager_id": 7
+    },
+    {
+        "first_name": "Ginny",
+        "last_name":"Thompson",
+        "role_id":6,
+        "manager_id": 3
+    },
+    {
+        "first_name": "Mick",
+        "last_name":"Jenkins",
+        "role_id":9,
+        "manager_id": 7
+    },
+    {
+        "first_name": "Bobby",
+        "last_name":"Snobson",
+        "role_id":10,
+        "manager_id": 7
+    }
+]
