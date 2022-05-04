@@ -6,15 +6,20 @@ router.get("/all", (req,res)=>{
 })
 
 router.post("/new", (req,res)=>{
+    try{
     Employee.create({
         role_id: req.body.role_id,
     }).then((data)=> {
-        res.json(data);
-        console.log("Sucessful Insertion.")
+        res.status(200).json(data);
     });
+}
+    catch(err){
+        res.status(400).json(err);
+    }
 })
 
 router.put("/update", (req,res)=>{
+    try{
     Employee.update({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -25,7 +30,10 @@ router.put("/update", (req,res)=>{
         where:{
             id: req.body.id
         }
-    })
+    }).then((data)=> res.json(data));
+} catch(err){
+    res.status(400).json(err);
+}
 });
 
 module.exports= router;

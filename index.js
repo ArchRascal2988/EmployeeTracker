@@ -172,48 +172,53 @@ async function chosenPrompt(option){
     if(isPost){
         if(option.length==5){
             const {fName, lName, eRole, eMan} = choices;
-            pData= fetch(url, {
+            pData= await fetch(url, {
                 method: "POST",
                 body: {
-                    first_name: fName,
-                    last_name: lName,
-                    role_id: eRole,
-                    manager_id: eMan
+                    "first_name": fName,
+                    "last_name": lName,
+                    "role_id": eRole,
+                    "manager_id": eMan
                 }
             }).then((res) => res.json()).then((data)=>{return data});
-            console.log("Employee Added");
+            console.log(pData, `\n Sucessful post.`);
+            init();
         } else if(option.length==3){
             const {rName, rSal, dID} = choices;
-            pData= fetch(url, {
+            pData= await fetch(url, {
                 method: "POST",
                 body: {
-                    title: rName,
-                    salary: rSal,
-                    dep_id: dID,
+                    "title": rName,
+                    "salary": rSal,
+                    "dep_id": dID,
                 }
             }).then((res) => res.json()).then((data)=>{return data});
-            console.log("Role Added")
+            console.log(pData, `\n Sucessful post.`);
+            init();
         } else{
             const {addDName} = choices;
-            pData= fetch(url, {
+            console.log(choices, addDName)
+            pData= await fetch(url, {
                 method: "POST",
                 body: {
-                    dep_name: addDName
+                    "dep_name": addDName
                 }
             }).then((res) => res.json()).then((data)=>{return data});
-            console.log("Department Added")
+            console.log(pData, `\n Sucessful post.`);
+            init();
         }
     } 
     if(isPut){
         const {eId, eRole} = choices;
-        pData= fetch(url, {
-            method: "POST",
+        pData= await fetch(url, {
+            method: "PUT",
             body: {
-                id: eId,
-                role_id: eRole
+                "id": eId,
+                "role_id": eRole
             }
         }).then((res) => res.json()).then((data)=>{return data});
-        console.log("Employee Updated");
+        console.log(pData, `\n Sucessful put.`);
+        init();
     } 
     init();
 }
