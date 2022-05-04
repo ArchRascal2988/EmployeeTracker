@@ -1,7 +1,7 @@
 const inq= require("inquirer");
 const tDisplay= require("console.table");
-let url= "http://localhost:3001/";
 const fetch= require("node-fetch");
+let url;
 let isPost;
 let isPut;
 let mess;
@@ -21,54 +21,127 @@ const landing= {
     ]
 }
 
-const dep={
-    type: "confirm",
-    message: `${mess} \n Would you like to do something else?`,
-    name: "depC"
+let addD={
+        type: "input",
+        message: "What is the name of the department you would like to add?",
+        name:"addDName"
 }
 
-const role={
-    type: "confirm",
-    message: `${mess} \n Would you like to do something else?`,
-    name: "roleC"
-}
+let addR=[
+    {
+        type: "input",
+        message: "What is the name of the role you would like to add?",
+        name: "rName"
+    },
+    {
+        type: "list",
+        message: "What is the role's given salary?",
+        name: "rSal",
+        choices:[
+            100000,
+            90000,
+            80000,
+            70000,
+            60000,
+            50000
+        ]
+    },
+    {
+        type: "choice",
+        message: "What department number does this role belong to?",
+        name: "dID",
+        choices: [
+            1,
+            2,
+            3,
+            4,
+            5
+        ]
+    }
+]
 
-const emp={
-    type: "confirm",
-    message:  `${mess} \n Would you like to do something else?`,
-    name: "empC"
-}
+let addE=[
+    {
+        type: "input",
+        message: "What is the employee's first name?",
+        name: "fName"
+    },
+    {
+        type: "input",
+        message: "What is the employee's last name?",
+        name: "lName"
+    },
+    {
+        type: "list",
+        message: "What role number is this employee?",
+        name: "eRole",
+        choices:[
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+        ]
+    },
+    {
+        type: "choice",
+        message: "What is this employees manager id?",
+        name: "eMan",
+        choices: [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+        ]
+    }
+]
 
-const addD={
-
-}
-
-const addR={
-    
-}
-
-const addE={
-    
-}
-
-const update={
-
-}
+let update=[
+    {
+        type: "input",
+        message: "What is the employee's id?",
+        name: "eID"
+    },
+    {
+        type: "list",
+        message: "What is the employee's new roleID?",
+        name: "eRole",
+        choices:[
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+        ]
+    }
+]
 
 async function selection(option){
     switch(option){
-        case dep:
+        case "dep":
             url= `${url}departments/all`;
-            console.log(url);
             mess= await fetch(url, {method: "GET"}).then((res) => res.json()).then((data)=>{return data});
             break;
-        case role:
+        case "role":
             url= `${url}roles/all`;
-            mess= await fetch(url, {method: "GET"}).then((res) =>{ return res.json});
+            mess= await fetch(url, {method: "GET"}).then((res) => res.json()).then((data)=>{return data});
             break;
-        case emp:
+        case "emp":
             url= `${url}employees/all`;
-            mess= await fetch(url, {method: "GET"}).then((res) =>{ return res.json});
+            mess= await fetch(url, {method: "GET"}).then((res) => res.json()).then((data)=>{return data});
             break;
         case addD:
             url= `${url}departments/new`;
@@ -87,31 +160,76 @@ async function selection(option){
             isPut=true;
             break;
     }
-    console.log(mess);
+    if(mess){
+        console.table(mess);
+    }
     chosenPrompt(option);
 }
 
 async function chosenPrompt(option){
+    let pData;
+    let choices= await inq.prompt(option).then((res)=> {return res});
     if(isPost){
-
-    } else if(isPut){
-
-    } else{
-        inq.prompt(option);
-    }
+        if(option.length==5){
+            const {fName, lName, eRole, eMan} = choices;
+            pData= fetch(url, {
+                method: "POST",
+                body: {
+                    first_name: fName,
+                    last_name: lName,
+                    role_id: eRole,
+                    manager_id: eMan
+                }
+            }).then((res) => res.json()).then((data)=>{return data});
+            console.log("Employee Added");
+        } else if(option.length==3){
+            const {rName, rSal, dID} = choices;
+            pData= fetch(url, {
+                method: "POST",
+                body: {
+                    title: rName,
+                    salary: rSal,
+                    dep_id: dID,
+                }
+            }).then((res) => res.json()).then((data)=>{return data});
+            console.log("Role Added")
+        } else{
+            const {addDName} = choices;
+            pData= fetch(url, {
+                method: "POST",
+                body: {
+                    dep_name: addDName
+                }
+            }).then((res) => res.json()).then((data)=>{return data});
+            console.log("Department Added")
+        }
+    } 
+    if(isPut){
+        const {eId, eRole} = choices;
+        pData= fetch(url, {
+            method: "POST",
+            body: {
+                id: eId,
+                role_id: eRole
+            }
+        }).then((res) => res.json()).then((data)=>{return data});
+        console.log("Employee Updated");
+    } 
+    init();
 }
 
 async function init(){
+    url= "http://localhost:3001/";
     let choice = await inq.prompt(landing).then((res)=> {return res.landing});
     switch (choice){
         case "View all departments.":
-            selection(dep);
+            selection("dep");
             break;
         case "View all roles.":
-            selection(role);
+            selection("role");
             break;
         case "View all employees.":
-            selection(emp);
+            selection("emp");
             break;
         case "Add a department.":
             selection(addD);

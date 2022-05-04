@@ -6,10 +6,11 @@ router.get("/all", (req,res)=>{
 })
 
 router.post("/new", (req,res)=>{
-    Department.Create({name: req.body.name}).then((data)=> {
+    Department.create({name: req.body.name}).then((data)=> {
         res.json(data);
         console.log("Sucessful Insertion.")
     });
+    
 })
 
 module.exports= router;
